@@ -1,1 +1,1 @@
-# NASA-Bearing-Dataset
+# NASA-Bearing-Fault-Diagnosis
