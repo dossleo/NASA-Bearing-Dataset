@@ -28,7 +28,7 @@ share/python-wheels/
 MANIFEST
 
 #Ignorados por mim
-Database/
+database/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
