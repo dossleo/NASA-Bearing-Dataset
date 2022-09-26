@@ -29,6 +29,7 @@ MANIFEST
 
 #Ignorados por mim
 database/
+teste/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

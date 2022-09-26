@@ -2,25 +2,25 @@ from math import *
 
 class Bearing():
 
-    def __init__(Self,rpm,D_pista_externa,D_pista_interna,n_rolos,phi = 0):
+    def __init__(self,rpm,d_pista_externa,d_pista_interna,n_rolos,phi = 0):
 
-        Self.d_rolo = Self.D_pita_externa - Self.D_pista_interna
-        Self.D_medio = (Self.D_pita_externa - Self.D_pista_interna)/2
-        Self.freq_rot = Self.rpm*2*pi/60
+        self.d_rolo = (self.d_pista_externa - self.d_pista_interna)
+        self.d_medio = (self.d_pista_externa - self.d_pista_interna)/2
+        self.freq_rot = self.rpm*2*pi/60
 
-    def freq_outer_race(Self):
-        #Self.freq_rot = Self.rpm*2*pi/60
-        return Self.freq_rot*Self.n_rolos*0.5*(1-(Self.d_rolo/Self.D_medio)*cos(Self.phi))
+    def freq_outer_race(self):
+        #self.freq_rot = self.rpm*2*pi/60
+        return self.freq_rot*self.n_rolos*0.5*(1-(self.d_rolo/self.d_medio)*cos(self.phi))
 
-    def freq_innter_race(Self):
-        #Self.freq_rot = Self.rpm*2*pi/60
-        return Self.freq_rot*Self.n_rolos*0.5*(1+(Self.d_rolo/Self.D_medio)*cos(Self.phi))
+    def freq_innter_race(self):
+        #self.freq_rot = self.rpm*2*pi/60
+        return self.freq_rot*self.n_rolos*0.5*(1+(self.d_rolo/self.d_medio)*cos(self.phi))
     
-    def freq_gaiola(Self):
-        #Self.freq_rot = Self.rpm*2*pi/60
-        return Self.freq_rot*0.5*(1-(Self.d_rolo/Self.D_medio)*cos(Self.phi))
+    def freq_gaiola(self):
+        #self.freq_rot = self.rpm*2*pi/60
+        return self.freq_rot*0.5*(1-(self.d_rolo/self.d_medio)*cos(self.phi))
     
-    def freq_rolo(Self):
-        #Self.freq_rot = Self.rpm*2*pi/60
-        return (Self.D_medio/(2*Self.d_rolo))*(1-((Self.d_rolo/Self.D_medio)*cos(Self.phi))**2)
+    def freq_rolo(self):
+        #self.freq_rot = self.rpm*2*pi/60
+        return (self.d_medio/(2*self.d_rolo))*(1-((self.d_rolo/self.d_medio)*cos(self.phi))**2)
 

@@ -4,45 +4,50 @@ import scipy.io
 import numpy as np
 import pandas as pd
 import os
+import glob
 
 from bearing import Bearing
 
 class Time_Features_Extraction():
-    def __init__(Self,path):
+    def __init__(self,path):
         pass
 
-    def maximum(Self):
+    def maximum(self):
         pass
 
-    def minimum(Self):
+    def minimum(self):
         pass
 
-    def mean(Self):
+    def mean(self):
         pass
 
-    def kurtosis(Self):
+    def skewness(self):
         pass
+
+    def kurtosis(self):
+        pass
+
 
 
 class Frequency_Features_Extraction():
-    def __init__(Self,path,rolamento):
+    def __init__(self,path,rolamento):
         pass
     
-    def FFT(Self):
+    def FFT(self):
         pass
 
-    def picos_rpm(Self):
+    def picos_rpm(self):
         pass
     
-    def picos_pista_externa(Self):
+    def picos_pista_externa(self):
         pass
 
-    def picos_pista_interna(Self):
+    def picos_pista_interna(self):
         pass
 
-    def picos_gaiola(Self):
+    def picos_gaiola(self):
         pass
 
-    def picos_rolo(Self):
+    def picos_rolo(self):
         pass
     
