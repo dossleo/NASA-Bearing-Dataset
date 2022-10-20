@@ -1,5 +1,4 @@
 from msilib.schema import SelfReg
-from typing_extensions import Self
 import matplotlib.pyplot as plt
 import scipy.io
 import numpy as np
@@ -8,9 +7,7 @@ import os
 import glob
 from math import sqrt
 
-from bearing import Bearing
-
-class Time_Features_Extraction():
+class TimeFeatureExtraction():
     def __init__(self,path):
         #path=r'database\\brutos\\2nd_test'
 
@@ -56,7 +53,7 @@ class Time_Features_Extraction():
 
     def skewness(self):
         self.n = len(self.bearing_data)
-        self.third_moment = np.sum((self.bearing_data - np.mean(self.bearing_data))**3) / n
+        self.third_moment = np.sum((self.bearing_data - np.mean(self.bearing_data))**3) / self.length
         self.s_3 = np.std(self.bearing_data, ddof = 1) ** 3
         self.skew = self.third_moment/self.s_3
 
@@ -83,15 +80,59 @@ class Time_Features_Extraction():
 
         #self.feature_matrix[0,8] = self.ff
         return self.ff
+    
+    
+    def execute_time_features(self):
+        path = r'C:\\Users\\leona\\Documents\\Projeto_Final\\NASA-Bearing-Dataset\\database\\brutos\\2nd_test'
+        self.Time_feature_matrix=pd.DataFrame()
+
+        self.test_set=2
+
+        self.bearing_no=1 # Provide the Bearing number [1,2,3,4] of the Test set
+
+        for filename in os.listdir(path):
+            
+            self.dataset=pd.read_csv(os.path.join(path, filename), sep='\t',header=None)
+
+            self.bearing_data = np.array(self.dataset.iloc[:,self.bearing_no-1])
+
+            self.feature_matrix=np.zeros((1,9))
+
+            self.feature_matrix[0,0] = self.maximum()
+            self.feature_matrix[0,1] = self.minimum()
+            self.feature_matrix[0,2] = self.mean()
+            self.feature_matrix[0,3] = self.standard_deviation()
+            self.feature_matrix[0,4] = self.rms()
+            self.feature_matrix[0,5] = self.skewness()
+            self.feature_matrix[0,6] = self.kurtosis()
+            self.feature_matrix[0,7] = self.crest_factor()
+            self.feature_matrix[0,8] = self.form_factor()
+            
+            self.df = pd.DataFrame(self.feature_matrix)
+            self.df.index=[filename[:-3]]
+            
+            self.frames = [self.Time_feature_matrix,self.df]
+            self.Time_feature_matrix = pd.concat(self.frames)
+
+
 
 
 
 class Frequency_Features_Extraction():
     def __init__(self,path,rolamento):
-        pass
+        self.filename = '2004.02.12.10.32.39'
+        self.dataset=pd.read_csv(os.path.join(path, self.filename), sep='\t',header=None)
+
+        self.bearing_no = 1
+        self.bearing_data = np.array(self.dataset.iloc[:,self.bearing_no-1])
+
+        #self.feature_matrix=np.zeros((1,9))
+
+        self.length = len(self.bearing_data)
     
     def FFT(self):
-        pass
+        self.fourier = np.fft.fftfreq(self.bearing_data)
+        return self.fourier
 
     def picos_rpm(self):
         pass
@@ -108,39 +149,5 @@ class Frequency_Features_Extraction():
     def picos_rolo(self):
         pass
 
-
-class execute_features(Time_Features_Extraction,Frequency_Features_Extraction):
-    def __init__(self, path):
-        super().__init__(path)
-        
-    def execute_time_features(self):
-
-        self.Time_feature_matrix=pd.DataFrame()
-
-        self.test_set=2
-
-        self.bearing_no=1 # Provide the Bearing number [1,2,3,4] of the Test set
-
-        for filename in os.listdir(self.path):
-            
-            self.dataset=pd.read_csv(os.path.join(self.path, filename), sep='\t',header=None)
-
-            self.bearing_data = np.array(self.dataset.iloc[:,self.bearing_no-1])
-
-            self.feature_matrix=np.zeros((1,9))
-
-            self.feature_matrix[0,0] = self.maximum
-            self.feature_matrix[0,1] = self.minimum
-            self.feature_matrix[0,2] = self.mean
-            self.feature_matrix[0,3] = self.standard_deviation
-            self.feature_matrix[0,4] = self.rms
-            self.feature_matrix[0,5] = self.skewness
-            self.feature_matrix[0,6] = self.kurtosis
-            self.feature_matrix[0,7] = self.crest_factor
-            self.feature_matrix[0,8] = self.form_factor
-            
-            self.df = pd.DataFrame(self.feature_matrix)
-            self.df.index=[filename[:-3]]
-            
-            self.Time_feature_matrix = self.Time_feature_matrix.append(self.df)
-
+Teste1 = TimeFeatureExtraction(r'database\\brutos\\2nd_test')
+Teste1.maximum()
